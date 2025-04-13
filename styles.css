@@ -1,0 +1,1326 @@
+:root {
+    --primary-color: #4a6cf7;
+    --text-color-light: #333;
+    --text-color-dark: #f0f0f0;
+    --bg-color-light: #ffffff;
+    --bg-color-dark: #1a1a1a;
+    --header-bg-light: #f0f0f0;
+    --header-bg-dark: #121212;
+    --card-bg-light: #f5f5f5;
+    --card-bg-dark: #2a2a2a;
+    --card-hover-light: #e0e0e0;
+    --card-hover-dark: #3a3a3a;
+    --shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-dark: 0 4px 6px rgba(0, 0, 0, 0.3);
+    --transition-speed: 0.3s;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    min-height: 100vh;
+}
+
+body.light-mode {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+body.dark-mode {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    transition: background-color var(--transition-speed);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+body.light-mode header {
+    background-color: var(--header-bg-light);
+    box-shadow: var(--shadow-light);
+}
+
+body.dark-mode header {
+    background-color: var(--header-bg-dark);
+    box-shadow: var(--shadow-dark);
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    max-width: 500px;
+}
+
+#search-input {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 20px 0 0 20px;
+    outline: none;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed);
+}
+
+body.light-mode #search-input {
+    background-color: white;
+    color: var(--text-color-light);
+    border: 1px solid #ddd;
+}
+
+body.dark-mode #search-input {
+    background-color: #333;
+    color: var(--text-color-dark);
+    border: 1px solid #444;
+}
+
+#search-button {
+    padding: 0.6rem 1rem;
+    border: none;
+    border-radius: 0 20px 20px 0;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+#search-button:hover {
+    background-color: #3a5bd9;
+}
+
+.theme-toggle button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: color 0.2s;
+    color: var(--primary-color);
+}
+
+.theme-toggle button:hover {
+    color: #3a5bd9;
+}
+
+main {
+    padding: 2rem;
+}
+
+.tools-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+@media (min-width: 992px) {
+    .tools-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.tool-card {
+    border-radius: 12px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all var(--transition-speed);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+body.light-mode .tool-card {
+    background-color: var(--card-bg-light);
+    box-shadow: var(--shadow-light);
+}
+
+body.dark-mode .tool-card {
+    background-color: var(--card-bg-dark);
+    box-shadow: var(--shadow-dark);
+}
+
+.tool-card:hover {
+    transform: translateY(-5px);
+}
+
+body.light-mode .tool-card:hover {
+    background-color: var(--card-hover-light);
+}
+
+body.dark-mode .tool-card:hover {
+    background-color: var(--card-hover-dark);
+}
+
+.tool-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.tool-card h3 {
+    margin-bottom: 0.5rem;
+}
+
+.tool-card p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* 工具页面样式 */
+.tool-pages {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: inherit;
+    z-index: 1000;
+    display: none;
+    overflow-y: auto;
+}
+
+/* 文本对比工具样式 */
+.text-compare-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.text-compare-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.text-compare-textarea-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.line-numbers {
+    padding: 0.8rem 0;
+    text-align: right;
+    user-select: none;
+    border-radius: 8px 0 0 8px;
+    font-family: monospace;
+    overflow: hidden;
+    min-width: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem; /* 确保字体大小一致 */
+}
+
+.line-number {
+    height: 1.5em;
+    padding: 0 0.5rem;
+    line-height: 1.5em; /* 确保行高一致 */
+}
+
+body.light-mode .line-numbers {
+    background-color: #f0f0f0;
+    color: #888;
+    border: 1px solid #ddd;
+    border-right: none;
+}
+
+body.dark-mode .line-numbers {
+    background-color: #2a2a2a;
+    color: #aaa;
+    border: 1px solid #444;
+    border-right: none;
+}
+
+/* 文本对比输入框样式 */
+.text-compare-textarea {
+    flex: 1;
+    border-radius: 0 8px 8px 0 !important;
+    font-family: monospace;
+    line-height: 1.5;
+    white-space: pre;
+    overflow: auto;
+    padding: 0.8rem;
+    resize: none !important; /* 使用!important彻底禁止调整大小 */
+    font-size: 1rem; /* 确保字体大小一致 */
+    line-height: 1.5em; /* 确保行高一致 */
+    min-height: 150px; /* 设置最小高度 */
+    transition: height 0.2s ease; /* 平滑过渡效果 */
+}
+
+.highlight-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    white-space: pre;
+    font-family: monospace;
+    line-height: 1.5em; /* 确保行高一致 */
+    overflow: hidden;
+    padding: 0.8rem;
+    color: transparent;
+    z-index: 1;
+    font-size: 1rem; /* 确保字体大小一致 */
+}
+
+.diff-highlight {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 3px;
+    height: 1.5em;
+    line-height: 1.5em; /* 确保行高一致 */
+}
+
+/* 添加这个新样式用于行内高亮 */
+.text-compare-textarea .diff-line {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+/* 正则表达式匹配工具样式 */
+.regex-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+body.light-mode .regex-result {
+    background-color: #f8f8f8;
+}
+
+body.dark-mode .regex-result {
+    background-color: #2d2d2d;
+}
+
+.match-count {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.match-text {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.match-highlight {
+    background-color: rgba(74, 108, 247, 0.3);
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* 文件格式转换工具样式 */
+.file-upload-container {
+    margin-bottom: 2rem;
+}
+
+.file-drop-area {
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+body.light-mode .file-drop-area {
+    background-color: rgba(74, 108, 247, 0.05);
+}
+
+body.dark-mode .file-drop-area {
+    background-color: rgba(74, 108, 247, 0.1);
+}
+
+.file-drop-area:hover, .file-drop-area.drag-over {
+    border-color: #3a5bd9;
+    background-color: rgba(74, 108, 247, 0.15);
+}
+
+.file-drop-area i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.file-input-label {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.file-input-label:hover {
+    background-color: #3a5bd9;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+body.light-mode .file-info {
+    background-color: var(--card-bg-light);
+    box-shadow: var(--shadow-light);
+}
+
+body.dark-mode .file-info {
+    background-color: var(--card-bg-dark);
+    box-shadow: var(--shadow-dark);
+}
+
+.file-preview {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.file-preview i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.file-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.file-details {
+    flex-grow: 1;
+}
+
+.file-details p {
+    margin: 0.3rem 0;
+}
+
+#remove-file-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    background-color: #e74c3c;
+}
+
+#remove-file-btn:hover {
+    background-color: #c0392b;
+}
+
+.conversion-options {
+    margin-bottom: 2rem;
+}
+
+.conversion-result {
+    margin-top: 2rem;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+body.dark-mode .progress-bar {
+    background-color: #444;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.download-section {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.storage-info {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+body.dark-mode .storage-info {
+    color: #aaa;
+}
+
+/* 文件管理器样式 */
+.file-manager-container {
+    margin-top: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: var(--bg-color-secondary);
+}
+
+.file-manager-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 1.2em;
+}
+
+.file-list-container {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.8fr;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.user-file-list {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.8fr;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item:hover {
+    background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-date, .file-size {
+    color: var(--text-color-secondary);
+    font-size: 0.9em;
+}
+
+.file-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.download-file-btn, .delete-file-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.download-file-btn {
+    color: var(--primary-color);
+}
+
+.delete-file-btn {
+    color: #e74c3c;
+}
+
+.download-file-btn:hover {
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.delete-file-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.loading-files, .no-files, .error-message {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-color-secondary);
+}
+
+.error-message {
+    color: #ff5252;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+/* 用户功能样式 */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.user-btn:hover {
+    background-color: #3a5bd9;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+#username-display {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--bg-color-dark);
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .modal-content {
+    background-color: var(--bg-color-light);
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color-dark);
+}
+
+body.light-mode .close-modal {
+    color: var(--text-color-light);
+}
+
+.form-footer {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.tool-page {
+    display: none;
+    padding: 2rem;
+    height: 100%;
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    margin-right: 1rem;
+}
+
+.tool-content {
+    max-width: 95%; /* 修改为95%宽度 */
+    margin: 0 auto;
+}
+
+.text-compare-container {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    width: 100%; /* 确保容器占满父元素的宽度 */
+}
+
+.text-compare-column {
+    flex: 1;
+    min-width: 0; /* 防止内容溢出 */
+    display: flex;
+    flex-direction: column;
+}
+
+.text-compare-textarea-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.line-numbers {
+    padding: 0.8rem 0;
+    text-align: right;
+    user-select: none;
+    border-radius: 8px 0 0 8px;
+    font-family: monospace;
+    overflow: hidden;
+    min-width: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 1rem; /* 确保字体大小一致 */
+}
+
+.line-number {
+    height: 1.5em;
+    padding: 0 0.5rem;
+    line-height: 1.5em; /* 确保行高一致 */
+}
+
+body.light-mode .line-numbers {
+    background-color: #f0f0f0;
+    color: #888;
+    border: 1px solid #ddd;
+    border-right: none;
+}
+
+body.dark-mode .line-numbers {
+    background-color: #2a2a2a;
+    color: #aaa;
+    border: 1px solid #444;
+    border-right: none;
+}
+
+/* 文本对比输入框样式 */
+.text-compare-textarea {
+    flex: 1;
+    border-radius: 0 8px 8px 0 !important;
+    font-family: monospace;
+    line-height: 1.5;
+    white-space: pre;
+    overflow: auto;
+    padding: 0.8rem;
+    resize: none !important; /* 使用!important彻底禁止调整大小 */
+    font-size: 1rem; /* 确保字体大小一致 */
+    line-height: 1.5em; /* 确保行高一致 */
+    min-height: 150px; /* 设置最小高度 */
+    transition: height 0.2s ease; /* 平滑过渡效果 */
+}
+
+.highlight-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    white-space: pre;
+    font-family: monospace;
+    line-height: 1.5em; /* 确保行高一致 */
+    overflow: hidden;
+    padding: 0.8rem;
+    color: transparent;
+    z-index: 1;
+    font-size: 1rem; /* 确保字体大小一致 */
+}
+
+.diff-highlight {
+    background-color: rgba(255, 0, 0, 0.2);
+    border-radius: 3px;
+    height: 1.5em;
+    line-height: 1.5em; /* 确保行高一致 */
+}
+
+/* 添加这个新样式用于行内高亮 */
+.text-compare-textarea .diff-line {
+    background-color: rgba(255, 0, 0, 0.2);
+}
+
+/* 正则表达式匹配工具样式 */
+.regex-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+body.light-mode .regex-result {
+    background-color: #f8f8f8;
+}
+
+body.dark-mode .regex-result {
+    background-color: #2d2d2d;
+}
+
+.match-count {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.match-text {
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.match-highlight {
+    background-color: rgba(74, 108, 247, 0.3);
+    border-radius: 2px;
+    padding: 0 2px;
+}
+
+/* 文件格式转换工具样式 */
+.file-upload-container {
+    margin-bottom: 2rem;
+}
+
+.file-drop-area {
+    border: 2px dashed var(--primary-color);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+body.light-mode .file-drop-area {
+    background-color: rgba(74, 108, 247, 0.05);
+}
+
+body.dark-mode .file-drop-area {
+    background-color: rgba(74, 108, 247, 0.1);
+}
+
+.file-drop-area:hover, .file-drop-area.drag-over {
+    border-color: #3a5bd9;
+    background-color: rgba(74, 108, 247, 0.15);
+}
+
+.file-drop-area i {
+    font-size: 3rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.file-input-label {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    margin-top: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.file-input-label:hover {
+    background-color: #3a5bd9;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+}
+
+body.light-mode .file-info {
+    background-color: var(--card-bg-light);
+    box-shadow: var(--shadow-light);
+}
+
+body.dark-mode .file-info {
+    background-color: var(--card-bg-dark);
+    box-shadow: var(--shadow-dark);
+}
+
+.file-preview {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 1rem;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.file-preview i {
+    font-size: 2rem;
+    color: var(--primary-color);
+}
+
+.file-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.file-details {
+    flex-grow: 1;
+}
+
+.file-details p {
+    margin: 0.3rem 0;
+}
+
+#remove-file-btn {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.9rem;
+    background-color: #e74c3c;
+}
+
+#remove-file-btn:hover {
+    background-color: #c0392b;
+}
+
+.conversion-options {
+    margin-bottom: 2rem;
+}
+
+.conversion-result {
+    margin-top: 2rem;
+}
+
+.progress-bar {
+    height: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+    overflow: hidden;
+}
+
+body.dark-mode .progress-bar {
+    background-color: #444;
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0;
+    background-color: var(--primary-color);
+    transition: width 0.3s;
+}
+
+.download-section {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.storage-info {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+body.dark-mode .storage-info {
+    color: #aaa;
+}
+
+/* 文件管理器样式 */
+.file-manager-container {
+    margin-top: 30px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    background-color: var(--bg-color-secondary);
+}
+
+.file-manager-container h3 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: var(--text-color);
+    font-size: 1.2em;
+}
+
+.file-list-container {
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.file-list-header {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.8fr;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 10px 15px;
+    font-weight: bold;
+}
+
+.user-file-list {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: var(--bg-color);
+}
+
+.file-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 0.8fr;
+    padding: 12px 15px;
+    border-bottom: 1px solid var(--border-color);
+    align-items: center;
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-item:hover {
+    background-color: rgba(var(--primary-rgb), 0.05);
+}
+
+.file-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.file-date, .file-size {
+    color: var(--text-color-secondary);
+    font-size: 0.9em;
+}
+
+.file-actions {
+    display: flex;
+    justify-content: space-around;
+}
+
+.download-file-btn, .delete-file-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.download-file-btn {
+    color: var(--primary-color);
+}
+
+.delete-file-btn {
+    color: #e74c3c;
+}
+
+.download-file-btn:hover {
+    background-color: rgba(var(--primary-rgb), 0.1);
+}
+
+.delete-file-btn:hover {
+    background-color: rgba(231, 76, 60, 0.1);
+}
+
+.loading-files, .no-files, .error-message {
+    padding: 20px;
+    text-align: center;
+    color: var(--text-color-secondary);
+}
+
+.error-message {
+    color: #ff5252;
+    font-weight: bold;
+    margin: 0.5rem 0;
+}
+
+/* 用户功能样式 */
+.user-section {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.user-btn {
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+.user-btn:hover {
+    background-color: #3a5bd9;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+#username-display {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* 模态框样式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+}
+
+.modal-content {
+    background-color: var(--bg-color-dark);
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+body.light-mode .modal-content {
+    background-color: var(--bg-color-light);
+}
+
+.close-modal {
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: var(--text-color-dark);
+}
+
+body.light-mode .close-modal {
+    color: var(--text-color-light);
+}
+
+.form-footer {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.form-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.form-footer a:hover {
+    text-decoration: underline;
+}
+
+.tool-page {
+    display: none;
+    padding: 2rem;
+    height: 100%;
+}
+
+.tool-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.back-btn {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: var(--primary-color);
+    margin-right: 1rem;
+}
+
+.input-group, .result-container {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-group label, .result-container label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.input-group input, .input-group select, .result-container input, .result-container textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: background-color var(--transition-speed), border var(--transition-speed);
+}
+
+body.light-mode .input-group input, 
+body.light-mode .input-group select, 
+body.light-mode .result-container input, 
+body.light-mode .result-container textarea {
+    background-color: white;
+    border: 1px solid #ddd;
+    color: var(--text-color-light);
+}
+
+body.dark-mode .input-group input, 
+body.dark-mode .input-group select, 
+body.dark-mode .result-container input, 
+body.dark-mode .result-container textarea {
+    background-color: #333;
+    border: 1px solid #444;
+    color: var(--text-color-dark);
+}
+
+.action-btn {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.action-btn:hover {
+    background-color: #3a5bd9;
+}
+
+.options-group {
+    margin-bottom: 1.5rem;
+}
+
+.checkbox-group {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: auto;
+    margin-right: 0.5rem;
+}
+
+/* 文本框统一样式 */
+#whitespace-input, #whitespace-result,
+#text-compare-input1, #text-compare-input2, #text-compare-result,
+#regex-input, #reverse-input, #reverse-result {
+    width: 100%;
+    min-height: 150px;
+    resize: vertical;
+    border-radius: 8px;
+    padding: 0.8rem;
+}
+
+body.light-mode #whitespace-input,
+body.light-mode #regex-input,
+body.light-mode #reverse-input,
+body.light-mode #whitespace-result,
+body.light-mode #reverse-result,
+body.light-mode #text-compare-input1,
+body.light-mode #text-compare-input2 {
+    background-color: white;
+    color: var(--text-color-light);
+    border: 1px solid #ddd;
+}
+
+body.dark-mode #whitespace-input,
+body.dark-mode #regex-input,
+body.dark-mode #reverse-input,
+body.dark-mode #whitespace-result,
+body.dark-mode #reverse-result,
+body.dark-mode #text-compare-input1,
+body.dark-mode #text-compare-input2 {
+    background-color: #333;
+    color: var(--text-color-dark);
+    border: 1px solid #444;
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+.file-storage-info {
+   margin-top: 2px;
+}

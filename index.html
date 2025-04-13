@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>在线工具箱</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="dark-mode">
+    <header>
+        <div class="logo">在线工具箱</div>
+        <div class="search-container">
+            <input type="text" id="search-input" placeholder="搜索工具...">
+            <button id="search-button"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header-right">
+            <div class="user-section">
+                <button id="login-button" class="user-btn">登录</button>
+                <button id="register-button" class="user-btn">注册</button>
+                <div id="user-profile" class="user-profile" style="display: none;">
+                    <span id="username-display"></span>
+                    <button id="logout-button" class="user-btn">退出</button>
+                </div>
+            </div>
+            <div class="theme-toggle">
+                <button id="theme-toggle-btn">
+                    <i class="fas fa-moon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="tools-container">
+            <div class="tool-card" data-tool="base-converter">
+                <div class="tool-icon"><i class="fas fa-exchange-alt"></i></div>
+                <h3>进制转换器</h3>
+                <p>在二进制、八进制、十进制和十六进制之间转换数字</p>
+            </div>
+            <div class="tool-card" data-tool="random-generator">
+                <div class="tool-icon"><i class="fas fa-dice"></i></div>
+                <h3>随机数生成器</h3>
+                <p>生成指定范围内的随机数字</p>
+            </div>
+            <div class="tool-card" data-tool="whitespace-remover">
+                <div class="tool-icon"><i class="fas fa-broom"></i></div>
+                <h3>去空格工具</h3>
+                <p>移除文本中的空格、制表符和换行符</p>
+            </div>
+            <div class="tool-card" data-tool="text-compare">
+                <div class="tool-icon"><i class="fas fa-not-equal"></i></div>
+                <h3>文本对比</h3>
+                <p>比较两段文本并高亮显示差异</p>
+            </div>
+            <div class="tool-card" data-tool="regex-matcher">
+                <div class="tool-icon"><i class="fas fa-code"></i></div>
+                <h3>正则表达式匹配</h3>
+                <p>测试正则表达式并查看匹配结果</p>
+            </div>
+            <div class="tool-card" data-tool="text-reverser">
+                <div class="tool-icon"><i class="fas fa-undo"></i></div>
+                <h3>文本反转</h3>
+                <p>将文本按字符或单词反转</p>
+            </div>
+            <div class="tool-card" data-tool="file-converter">
+                <div class="tool-icon"><i class="fas fa-file-export"></i></div>
+                <h3>文件格式转换</h3>
+                <p>转换各种文件格式，支持图片、文档等多种类型</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- 工具页面容器 -->
+    <div class="tool-pages" id="tool-pages">
+        <!-- 进制转换器 -->
+        <div class="tool-page" id="base-converter">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>进制转换器</h2>
+            </div>
+            <div class="tool-content">
+                <div class="input-group">
+                    <label for="input-number">输入数字:</label>
+                    <input type="text" id="input-number">
+                </div>
+                <div class="input-group">
+                    <label for="input-base">输入进制:</label>
+                    <select id="input-base">
+                        <option value="2">二进制</option>
+                        <option value="8">八进制</option>
+                        <option value="10" selected>十进制</option>
+                        <option value="16">十六进制</option>
+                    </select>
+                </div>
+                <div class="input-group">
+                    <label for="output-base">输出进制:</label>
+                    <select id="output-base">
+                        <option value="2">二进制</option>
+                        <option value="8">八进制</option>
+                        <option value="10">十进制</option>
+                        <option value="16" selected>十六进制</option>
+                    </select>
+                </div>
+                <button id="convert-btn" class="action-btn">转换</button>
+                <div class="result-container">
+                    <label for="conversion-result">结果:</label>
+                    <input type="text" id="conversion-result" readonly>
+                </div>
+            </div>
+        </div>
+
+        <!-- 随机数生成器 -->
+        <div class="tool-page" id="random-generator">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>随机数生成器</h2>
+            </div>
+            <div class="tool-content">
+                <div class="input-group">
+                    <label for="min-value">最小值:</label>
+                    <input type="number" id="min-value" value="1">
+                </div>
+                <div class="input-group">
+                    <label for="max-value">最大值:</label>
+                    <input type="number" id="max-value" value="100">
+                </div>
+                <div class="input-group">
+                    <label for="random-count">生成数量:</label>
+                    <input type="number" id="random-count" value="1" min="1" max="100">
+                </div>
+                <button id="generate-btn" class="action-btn">生成</button>
+                <div class="result-container">
+                    <label for="random-result">结果:</label>
+                    <textarea id="random-result" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 去空格工具 -->
+        <div class="tool-page" id="whitespace-remover">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>去空格工具</h2>
+            </div>
+            <div class="tool-content">
+                <div class="input-group">
+                    <label for="whitespace-input">输入文本:</label>
+                    <textarea id="whitespace-input" rows="6" placeholder="在此输入需要处理的文本..."></textarea>
+                </div>
+                <div class="options-group">
+                    <label>选项:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remove-spaces" checked>
+                        <label for="remove-spaces">移除空格</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remove-tabs" checked>
+                        <label for="remove-tabs">移除制表符</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remove-newlines" checked>
+                        <label for="remove-newlines">移除换行符</label>
+                    </div>
+                </div>
+                <button id="remove-whitespace-btn" class="action-btn">处理</button>
+                <div class="result-container">
+                    <label for="whitespace-result">结果:</label>
+                    <textarea id="whitespace-result" rows="6" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文本对比工具 -->
+        <div class="tool-page" id="text-compare">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>文本对比</h2>
+            </div>
+            <div class="tool-content">
+                <div class="text-compare-container">
+                    <div class="text-compare-column">
+                        <label for="text-compare-input1">文本 1:</label>
+                        <div class="text-compare-textarea-container">
+                            <div id="line-numbers1" class="line-numbers"></div>
+                            <textarea id="text-compare-input1" class="text-compare-textarea" placeholder="在此输入第一段文本..."></textarea>
+                        </div>
+                    </div>
+                    <div class="text-compare-column">
+                        <label for="text-compare-input2">文本 2:</label>
+                        <div class="text-compare-textarea-container">
+                            <div id="line-numbers2" class="line-numbers"></div>
+                            <textarea id="text-compare-input2" class="text-compare-textarea" placeholder="在此输入第二段文本..."></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button id="compare-btn" class="action-btn">比较</button>
+            </div>
+        </div>
+
+        <!-- 正则表达式匹配工具 -->
+        <div class="tool-page" id="regex-matcher">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>正则表达式匹配</h2>
+            </div>
+            <div class="tool-content">
+                <div class="input-group">
+                    <label for="regex-pattern">正则表达式:</label>
+                    <input type="text" id="regex-pattern" placeholder="输入正则表达式，例如: \d+">
+                </div>
+                <div class="input-group">
+                    <label for="regex-flags">标志:</label>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="regex-global" checked>
+                        <label for="regex-global">全局 (g)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="regex-case">
+                        <label for="regex-case">忽略大小写 (i)</label>
+                    </div>
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="regex-multiline">
+                        <label for="regex-multiline">多行 (m)</label>
+                    </div>
+                </div>
+                <div class="input-group">
+                    <label for="regex-input">测试文本:</label>
+                    <textarea id="regex-input" rows="6" placeholder="在此输入需要测试的文本..."></textarea>
+                </div>
+                <button id="regex-test-btn" class="action-btn">测试</button>
+                <div class="result-container">
+                    <label for="regex-result">匹配结果:</label>
+                    <div id="regex-result" class="regex-result"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文本反转工具 -->
+        <div class="tool-page" id="text-reverser">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>文本反转</h2>
+            </div>
+            <div class="tool-content">
+                <div class="input-group">
+                    <label for="reverse-input">输入文本:</label>
+                    <textarea id="reverse-input" rows="6" placeholder="在此输入需要反转的文本..."></textarea>
+                </div>
+                <div class="options-group">
+                    <label>反转方式:</label>
+                    <div class="radio-group">
+                        <input type="radio" id="reverse-char" name="reverse-type" checked>
+                        <label for="reverse-char">按字符反转</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="reverse-word" name="reverse-type">
+                        <label for="reverse-word">按单词反转</label>
+                    </div>
+                </div>
+                <button id="reverse-btn" class="action-btn">反转</button>
+                <div class="result-container">
+                    <label for="reverse-result">结果:</label>
+                    <textarea id="reverse-result" rows="6" readonly></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- 文件格式转换工具 -->
+        <div class="tool-page" id="file-converter">
+            <div class="tool-header">
+                <button class="back-btn"><i class="fas fa-arrow-left"></i> 返回</button>
+                <h2>文件格式转换</h2>
+            </div>
+            <div class="tool-content">
+                <div class="file-upload-container">
+                    <div class="file-drop-area" id="file-drop-area">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>拖拽文件到这里或</p>
+                        <label for="file-input" class="file-input-label">选择文件</label>
+                        <input type="file" id="file-input" class="file-input" hidden>
+                    </div>
+                    <div class="file-info" id="file-info" style="display: none;">
+                        <div class="file-preview" id="file-preview">
+                            <i class="fas fa-file"></i>
+                        </div>
+                        <div class="file-details">
+                            <p id="file-name"></p>
+                            <p id="file-size"></p>
+                            <p id="file-type"></p>
+                        </div>
+                        <button id="remove-file-btn" class="action-btn"><i class="fas fa-times"></i> 移除</button>
+                    </div>
+                </div>
+                
+                <div class="conversion-options" id="conversion-options" style="display: none;">
+                    <div class="input-group">
+                        <label for="target-format">目标格式:</label>
+                        <select id="target-format">
+                            <!-- 这些选项将根据上传的文件类型动态生成 -->
+                        </select>
+                    </div>
+                    <button id="convert-file-btn" class="action-btn">开始转换</button>
+                </div>
+                
+                <div class="conversion-result-2" id="conversion-result-2" style="display: none;">
+                    <div class="result-status">
+                        <div id="conversion-progress" class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+                        <p id="conversion-status">转换中...</p>
+                    </div>
+                    <div class="download-section" id="download-section" style="display: none;">
+                        <p>转换完成！</p>
+                        <button id="download-btn" class="action-btn"><i class="fas fa-download"></i> 下载文件</button>
+                        <p id="file-storage-info" class="storage-info"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 登录模态框 -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>用户登录</h2>
+            <form id="login-form">
+                <div class="input-group">
+                    <label for="login-username">用户名:</label>
+                    <input type="text" id="login-username" required>
+                </div>
+                <div class="input-group">
+                    <label for="login-password">密码:</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div id="login-error" class="error-message" style="display: none;"></div>
+                <button type="submit" class="action-btn">登录</button>
+                <p class="form-footer">还没有账号? <a href="#" id="switch-to-register">立即注册</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- 注册模态框 -->
+    <div id="register-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>用户注册</h2>
+            <form id="register-form">
+                <div class="input-group">
+                    <label for="register-username">用户名:</label>
+                    <input type="text" id="register-username" required>
+                </div>
+                <div class="input-group">
+                    <label for="register-password">密码:</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="input-group">
+                    <label for="register-confirm-password">确认密码:</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <div id="register-error" class="error-message" style="display: none;"></div>
+                <button type="submit" class="action-btn">注册</button>
+                <p class="form-footer">已有账号? <a href="#" id="switch-to-login">立即登录</a></p>
+            </form>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+    <script src="user.js"></script>
+    <script src="file-converter.js"></script>
+</body>
+</html>

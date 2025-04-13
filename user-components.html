@@ -1,0 +1,56 @@
+<!-- 用户功能组件 -->
+<!-- 登录按钮 -->
+<div class="user-section">
+    <button id="login-button" class="user-btn">登录</button>
+    <button id="register-button" class="user-btn">注册</button>
+    <div id="user-profile" class="user-profile" style="display: none;">
+        <span id="username-display"></span>
+        <button id="logout-button" class="user-btn">退出</button>
+    </div>
+</div>
+
+<!-- 登录模态框 -->
+<div id="login-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>用户登录</h2>
+        <form id="login-form">
+            <div class="input-group">
+                <label for="login-username">用户名:</label>
+                <input type="text" id="login-username" required>
+            </div>
+            <div class="input-group">
+                <label for="login-password">密码:</label>
+                <input type="password" id="login-password" required>
+            </div>
+            <div id="login-error" class="error-message" style="display: none;"></div>
+            <button type="submit" class="action-btn">登录</button>
+            <p class="form-footer">还没有账号? <a href="#" id="switch-to-register">立即注册</a></p>
+        </form>
+    </div>
+</div>
+
+<!-- 注册模态框 -->
+<div id="register-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2>用户注册</h2>
+        <form id="register-form">
+            <div class="input-group">
+                <label for="register-username">用户名:</label>
+                <input type="text" id="register-username" required>
+            </div>
+            <div class="input-group">
+                <label for="register-password">密码:</label>
+                <input type="password" id="register-password" required>
+            </div>
+            <div class="input-group">
+                <label for="register-confirm-password">确认密码:</label>
+                <input type="password" id="register-confirm-password" required>
+            </div>
+            <div id="register-error" class="error-message" style="display: none;"></div>
+            <button type="submit" class="action-btn">注册</button>
+            <p class="form-footer">已有账号? <a href="#" id="switch-to-login">立即登录</a></p>
+        </form>
+    </div>
+</div>
